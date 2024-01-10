@@ -1,22 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.h                                          :+:      :+:    :+:   */
+/*   free.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yaolivei <yaolivei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/14 17:55:53 by yaolivei          #+#    #+#             */
-/*   Updated: 2023/12/14 18:58:15 by yaolivei         ###   ########.fr       */
+/*   Created: 2024/01/09 20:51:48 by yaolivei          #+#    #+#             */
+/*   Updated: 2024/01/09 20:58:11 by yaolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SO_LONG_H
-# define SO_LONG_H
+#include "so_long.h"
 
-# include "../mlx/mlx.h"
-# include "../../libft/libft.h"
-# include <fcntl.h>
-# include <stdlib.h>
-# include <unistd.h>
+char	*free_map(char **map)
+{
+	int	i;
 
-#endif
+	i = 0;
+	while (map[i] != NULL)
+	{
+		free(map[i]);
+		i++;
+	}
+	free(map);
+	return (NULL);
+}
