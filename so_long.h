@@ -6,7 +6,7 @@
 /*   By: yaolivei <yaolivei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 17:55:53 by yaolivei          #+#    #+#             */
-/*   Updated: 2024/01/10 17:17:21 by yaolivei         ###   ########.fr       */
+/*   Updated: 2024/01/18 16:12:44 by yaolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,6 @@
 # include <sys/stat.h>
 # include <fcntl.h>
 
-typedef	struct	s_data
-{
-	void	*img;
-	char	*addr;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
-}				t_data;
-
 typedef struct	s_vars
 {
 	void	*mlx;
@@ -40,20 +31,33 @@ typedef struct	s_vars
 	char	**map;
 	int		map_width;
 	int		map_height;
-	int		player_x;
-	int		player_y;
+	int		mapa;
+	int		x;
+	int		y;
 }				t_vars;
-
+// GET_MAP //
+int		map_name_is_correct(char *map_path);
+char	*get_raw_map(char *map_path);
 char	**get_map(int argc, char **argv, t_vars *vars);
-int		strnendcmp(char *s1, const char *s2, size_t n);
+char	**map(int argc, char **argv, t_vars *vars);
+
+//	CHECK_MAP // 
 int		checks_in_raw_map_are_valids(char *raw_map, t_vars *vars);
-int		checks_in_final_map(char **map, t_vars *vars, char*raw_map);
-int		is_closed_map(char **map, t_vars *vars);
 int		raw_map_is_rectangular(char *raw_map, t_vars *vars);
 int		check_min_posible_map(t_vars *vars);
 int		check_only_valid_character(char *raw_map);
-int		min_quantity_of_some_chars(char *raw_map);
+
+// CHECK_MAP2 //
+int		checks_in_final_map(char **map, t_vars *vars);
+int		is_closed_map(char **map, t_vars *vars);
 int		exit_finder(char **map, int x, int y);
+
+// FREE //
 char	*free_map(char **map);
+
+// UTILS // 
+
+int		strnendcmp(char *s1, const char *s2, size_t n);
+int		count_char(char c, char *str);
 
 #endif

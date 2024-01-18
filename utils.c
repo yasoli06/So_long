@@ -6,7 +6,7 @@
 /*   By: yaolivei <yaolivei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 21:03:01 by yaolivei          #+#    #+#             */
-/*   Updated: 2024/01/09 19:55:37 by yaolivei         ###   ########.fr       */
+/*   Updated: 2024/01/18 17:00:45 by yaolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	strnendcmp(char *s1, const char *s2, size_t n)
 	ptr1 = (unsigned char *)s1;
 	ptr2 = (unsigned char *)s2;
 	i1 = ft_strlen((const char *)ptr1);
-	i2 = ft_strlen((const char *)ptr2); //pq calculo la longitud de const char?
+	i2 = ft_strlen((const char *)ptr2);
 	while (i < n + 1)
 	{
 		if (ptr1[i1] != ptr2[i2])
@@ -38,4 +38,21 @@ int	strnendcmp(char *s1, const char *s2, size_t n)
 	if (i < n)
 		return (-1);
 	return (0);
+}
+
+int	count_char(char c, char *str)
+{
+	int	i;
+	int	count;
+
+	i = 0;
+	count = 0;
+	while (str[i])
+	{
+		if (str[i] == c)
+			count++;
+		i++;
+	}
+	vars->count = count;
+	return (count);
 }

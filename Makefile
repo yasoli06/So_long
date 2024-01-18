@@ -8,7 +8,7 @@ RM = rm -rf
 LIBFT = libft/libft.a
 MLX = minilibx/libmlx.a
 
-SRCS = 	so_long.c maps.c gnl/get_next_line.c gnl/get_next_line_utils.c utils.c map_validations.c map_validations2.c free.c
+SRCS = 	so_long.c get_map.c check_map.c check_map2.c gnl/get_next_line.c gnl/get_next_line_utils.c utils.c   free.c
 
 OBJS = $(SRCS:%.c=%.o)
 OBJS_BONUS = $(SRCS_BONUS:%.c=%.o)
@@ -23,7 +23,7 @@ $(MLX):
 
 
 $(NAME): $(OBJS) $(LIBFT) $(MLX)
-	$(CC) $(SRCS) -o $(NAME) -L ./minilibx -lmlx -L ./libft -lft $(MFLAGS)
+	$(CC) $(SRCS) -o $(NAME) -L ./minilibx -lmlx -L ./libft -lft $(MFLAGS) -g
 
 
 clean:
