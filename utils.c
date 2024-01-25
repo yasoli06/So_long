@@ -6,7 +6,7 @@
 /*   By: yaolivei <yaolivei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 21:03:01 by yaolivei          #+#    #+#             */
-/*   Updated: 2024/01/18 17:00:45 by yaolivei         ###   ########.fr       */
+/*   Updated: 2024/01/25 15:18:58 by yaolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,5 @@ int	count_char(char c, char *str)
 			count++;
 		i++;
 	}
-	vars->count = count;
 	return (count);
 }
