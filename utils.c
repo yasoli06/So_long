@@ -6,7 +6,7 @@
 /*   By: yaolivei <yaolivei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 21:03:01 by yaolivei          #+#    #+#             */
-/*   Updated: 2024/01/25 15:18:58 by yaolivei         ###   ########.fr       */
+/*   Updated: 2024/01/26 18:42:03 by yaolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,4 +54,19 @@ int	count_char(char c, char *str)
 		i++;
 	}
 	return (count);
+}
+
+int	count_char_map(char c, char **map)
+{
+	int	n;
+	int	j;
+
+	n = 0;
+	j = 0;
+	while (map[j])
+	{
+		n = n + count_char(c, map[j]);
+		j++;
+	}
+	return (n);
 }

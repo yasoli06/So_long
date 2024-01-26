@@ -6,13 +6,13 @@
 /*   By: yaolivei <yaolivei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 16:35:54 by yaolivei          #+#    #+#             */
-/*   Updated: 2024/01/25 19:18:38 by yaolivei         ###   ########.fr       */
+/*   Updated: 2024/01/26 19:32:45 by yaolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int	map_name_is_correct(char *map_path)
+int	map_name_is_correct(char *map_path) // este tb esta correto
 {
 	size_t	len;
 
@@ -21,11 +21,11 @@ int	map_name_is_correct(char *map_path)
 		return (0);
 	if (strnendcmp(map_path, ".ber", 4) != 0)
 		return (0);
-	return (1);
 	printf("%s\n", "name_is_correct");
+	return (1);
 }
 
-char	*get_raw_map(char *map_path)
+char	*get_raw_map(char *map_path) // isso esta bem
 {
 	int		fd;
 	char	*line;
@@ -46,88 +46,65 @@ char	*get_raw_map(char *map_path)
 	}
 	close(fd);
 	free(line);
-	return (raw_map);
 	printf("%s\n", "tenemos raw_map");
+	return (raw_map);
 }
 
-char	**load_map(int argc, char **argv, t_vars *vars)
+char	**get_map(int argc, char **argv, t_vars *vars)
 {
 	char	*raw_map;
 	char	**map;
 
 	if (argc != 2 || !map_name_is_correct(argv[1]))
-		return (write(2, "Erro\n", 6), NULL);
+		write(2, "Erro\n", 6);
 	raw_map = get_raw_map(argv[1]);
 	if (!raw_map)
 		return (write(2, "Erro1\n", 6), NULL);
-	if (!checks_in_raw_map_are_valids(raw_map, vars))
+	map = ft_split(raw_map, '\n');
+	if (!check_final_map(map, vars, raw_map))
 	{
-		free(raw_map);
 		return (write(2, "Erro2\n", 6), NULL);
 	}
-	map = ft_split(raw_map, '\n');
-	if (!map)
-	{
-		free(raw_map);
-		return (write(2, "Erro3\n", 6), NULL);
-	}
+	printf("%s\n", "me genera el mapa?");
 	return (map);
-	printf("%s\n", "se carga el mapa");
 }
 
-int	exit_finder(char **map, int x, int y, t_vars *vars)
+void	flood_fill(char **map, int x, int y, t_vars *vars)
 {
-	int		e;
-	int		c;
-
-	e = 0;
-	c = 0;
-	if (map[y][x] == 'E')
-		e++;
-	if (map[y][x] == 'C')
-		c++;
-	if (map[y][x] == '1')
-		return (0);
-	// if (e == 1 && c == vars->collect)
-	// 	return (1);
-	map[y][x] = '1';
-	if (exit_finder(map, x - 1, y, vars) == 1)
-		return (1);
-	if (exit_finder(map, x + 1, y, vars) == 1)
-		return (1);
-	if (exit_finder(map, x, y - 1, vars) == 1)
-		return (1);
-	if (exit_finder(map, x, y + 1, vars) == 1)
-		return (1);
-	return (1);
-	printf("%s\n", "exit es ok");
+	if (x < 0 || y < 0 || x > vars->width || y > vars->height
+		|| map[y][x] == '1' || map[y][x] == '.')
+		return ;
+	map[y][x] = '.';
+	flood_fill(map, x + 1, y, vars);
+	flood_fill(map, x - 1, y, vars);
+	flood_fill(map, x, y + 1, vars);
+	flood_fill(map, x, y - 1, vars);
 }
 
-char	**map(int argc, char **argv, t_vars *vars)
+char	**final_map(int argc, char **argv, t_vars *vars)
 {
-	vars->x = -1;
+	vars->x = 0;
 	vars->y = 0;
-	vars->map = load_map(argc, argv, vars);
+	vars->map = get_map(argc, argv, vars);
 	while (vars->map[vars->y])
 	{
-		vars->x = -1;
-		while (vars->map[vars->y][++vars->x])
+		vars->x = 0;
+		while (vars->map[vars->y][vars->x])
 		{
 			if (vars->map[vars->y][vars->x] == 'P')
 				break ;
+			vars->x++;
 		}
 		if (vars->map[vars->y][vars->x] == 'P')
 			break ;
 		vars->y++;
 	}
-	if (vars->map[vars->y] == NULL || vars->map[vars->y][vars->x] != 'P')
-	{
-		free_map(vars->map);
+	flood_fill(vars->map, vars->x, vars->y, vars);
+	if (count_char_map('E', vars->map) > 0
+		|| count_char_map('C', vars->map) > 0)
 		return (NULL);
-	}
-	if (!exit_finder(vars->map, vars->x, vars->y, vars))
-		return (write(1, "Error_ff\n", 9), NULL);
 	free(vars->map);
-	vars->map = load_map(argc, argv, vars);
+	vars->map = get_map(argc, argv, vars);
+	printf("%s\n", vars->map[2]);
 	return (vars->map);
 }

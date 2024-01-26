@@ -6,88 +6,83 @@
 /*   By: yaolivei <yaolivei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 18:15:43 by yaolivei          #+#    #+#             */
-/*   Updated: 2024/01/25 19:15:19 by yaolivei         ###   ########.fr       */
+/*   Updated: 2024/01/26 16:13:35 by yaolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int	raw_map_is_rectangular(char *raw_map, t_vars *vars)
+int	check_is_rectangular(char **map, t_vars *vars)
 {
-	int	count_fila;
-	int	pos;
+	int		i;
+	int		j;
 
-	vars->map_width = 0;
-	vars->map_height = 0;
-	while (raw_map[vars->map_width] != '\n' && raw_map[vars->map_width] != '\0')
-		vars->map_width++;
-	pos = 0;
-	while (raw_map[pos] != '\0')
+	i = 0;
+	while (map[0][i])
+		i++;
+	vars->width = i;
+	j = 1;
+	while (map[j] != NULL)
 	{
-		vars->map_height++;
-		count_fila = 0;
-		while (raw_map[pos + count_fila] != '\n'
-			&& raw_map[pos + count_fila] != '\0')
-			count_fila++;
-		if (count_fila != vars->map_width)
+		i = 0;
+		while (map[j][i])
+			i++;
+		if (i != vars->width)
 			return (0);
-		pos = pos + count_fila;
-		if (raw_map[pos] == '\n')
-			pos++;
+		j++;
 	}
-	printf("%s", "mapa es rectangular");
+	vars->height = j;
+	printf("%s\n", "is rectangular");
 	return (1);
 }
 
-int	is_closed_map(char **map, t_vars *vars)
+int	check_is_closed(char **map, t_vars *vars)
 {
-	int		x;
-	int		y;
+	int		i;
+	int		j;
 
-	y = 0;
-	while (map[y] != NULL)
+	j = 0;
+	while (map[j] != NULL)
 	{
-		x = 0;
-		while (map[y][x])
+		i = 0;
+		while (map[j][i])
 		{
-			if (map[0][x] != '1' || map[vars->map_height - 1][x] != '1')
+			if (map[0][i] != '1' || map[vars->height - 1][i] != '1')
 				return (0);
-			x++;
+			i++;
 		}
-		y++;
-		while (y < vars->map_height)
+		j++;
+		while (j < vars->height)
 		{
-			if (map[y][0] != '1' || map[y][vars->map_width - 1] != '1')
+			if (map[j][0] != '1' || map[j][vars->width - 1] != '1')
 				return (0);
-			y++;
+			j++;
 		}
 	}
-	printf("%s", "mapa es closed");
+	printf("%s\n", "is closed");
 	return (1);
 }
 
-int	check_min_posible_map(t_vars *vars)
+int	check_min_size(t_vars *vars)
 {
-	if (vars->map_height < 3 || vars->map_width < 3)
+	if (vars->height < 3 || vars->width < 3)
 		return (0);
-	if (vars->map_height * vars->map_width < 15)
+	if (vars->height * vars->width < 15)
 		return (0);
-	printf("%s", "min posible es ok");
+	printf("%s\n", "min posible es ok");
 	return (1);
 }
 
-int	check_only_valid_character(char *raw_map, t_vars *vars)
+int	check_min_type_char(char *raw_map, t_vars *vars)
 {
 	int	i;
 
 	i = 0;
-	while (raw_map[i] != '\0')
+	while (raw_map[i])
 	{
-		if (raw_map[i] != 'C' && raw_map[i] != 'P' && raw_map[i] != '1'
-			&& raw_map[i] != '0' && raw_map[i] != 'E' && raw_map[i] != '\n')
-		{
+		if (raw_map[i] != 'P' && raw_map[i] != 'E' && raw_map[i] != 'C'
+			&& raw_map[i] != '1' && raw_map[i] != '0' && raw_map[i] != '\n')
 			return (0);
-		}
 		i++;
 	}
 	if (count_char('E', raw_map) != 1 && count_char('P', raw_map) != 1)
@@ -95,23 +90,20 @@ int	check_only_valid_character(char *raw_map, t_vars *vars)
 	vars->collect = (count_char('C', raw_map));
 	if (vars->collect < 1)
 		return (0);
-	printf("%s", "only_valid_character");
+	printf("%s\n", "los caracteres es ok");
 	return (1);
 }
 
-int	checks_in_raw_map_are_valids(char *raw_map, t_vars *vars)
+int	check_final_map(char **map, t_vars *vars, char *raw_map)
 {
-	if (!raw_map_is_rectangular(raw_map, vars))
+	if (!check_is_rectangular(map, vars))
 		return (0);
-	printf("%s", "ok1");
-	if (!is_closed_map(vars->map, vars))
+	if (!check_is_closed(map, vars))
 		return (0);
-	printf("%s", "ok2");
-	if (!check_min_posible_map(vars))
+	if (!check_min_size(vars))
 		return (0);
-	printf("%s", "ok3");
-	if (!check_only_valid_character(raw_map, vars))
+	if (!check_min_type_char(raw_map, vars))
 		return (0);
-	printf("%s", "ok4");
+	printf("%s\n", "los chequeos estan bien");
 	return (1);
 }
