@@ -6,13 +6,13 @@
 /*   By: yaolivei <yaolivei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 16:35:54 by yaolivei          #+#    #+#             */
-/*   Updated: 2024/01/26 19:32:45 by yaolivei         ###   ########.fr       */
+/*   Updated: 2024/01/27 18:14:30 by yaolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int	map_name_is_correct(char *map_path) // este tb esta correto
+int	map_name_is_correct(char *map_path)
 {
 	size_t	len;
 
@@ -25,7 +25,7 @@ int	map_name_is_correct(char *map_path) // este tb esta correto
 	return (1);
 }
 
-char	*get_raw_map(char *map_path) // isso esta bem
+char	*get_raw_map(char *map_path)
 {
 	int		fd;
 	char	*line;
@@ -105,6 +105,5 @@ char	**final_map(int argc, char **argv, t_vars *vars)
 		return (NULL);
 	free(vars->map);
 	vars->map = get_map(argc, argv, vars);
-	printf("%s\n", vars->map[2]);
 	return (vars->map);
 }

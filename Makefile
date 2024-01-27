@@ -8,7 +8,7 @@ RM = rm -rf
 LIBFT = libft/libft.a
 MLX = minilibx/libmlx.a
 
-SRCS = 	so_long.c get_map.c check_map.c get_images.c gnl/get_next_line.c gnl/get_next_line_utils.c utils.c free.c
+SRCS = 	so_long.c get_map.c check_map.c get_images.c game.c gnl/get_next_line.c gnl/get_next_line_utils.c utils.c free.c
 
 OBJS = $(SRCS:%.c=%.o)
 OBJS_BONUS = $(SRCS_BONUS:%.c=%.o)

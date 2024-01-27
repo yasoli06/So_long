@@ -6,7 +6,7 @@
 /*   By: yaolivei <yaolivei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 17:55:53 by yaolivei          #+#    #+#             */
-/*   Updated: 2024/01/26 20:31:56 by yaolivei         ###   ########.fr       */
+/*   Updated: 2024/01/27 19:18:56 by yaolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,10 @@ int		count_char_map(char c, char **map);
 // GET_IMAGES
 void	put_image(t_vars *vars, t_img *img, char *path);
 void	background(t_vars *vars, t_img	*img);
-int		closes(int keycode, t_vars *vars);
 void	get_images(t_vars *vars, t_img	*img);
 void	init_game(t_vars *vars, t_img *img);
+
+//GAME
+int		keypress(int keycode, t_vars *vars);
 
 #endif
