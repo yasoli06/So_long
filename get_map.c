@@ -6,7 +6,7 @@
 /*   By: yaolivei <yaolivei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 16:35:54 by yaolivei          #+#    #+#             */
-/*   Updated: 2024/01/27 18:14:30 by yaolivei         ###   ########.fr       */
+/*   Updated: 2024/01/28 16:08:35 by yaolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ int	map_name_is_correct(char *map_path)
 		return (0);
 	if (strnendcmp(map_path, ".ber", 4) != 0)
 		return (0);
-	printf("%s\n", "name_is_correct");
 	return (1);
 }
 
@@ -46,7 +45,6 @@ char	*get_raw_map(char *map_path)
 	}
 	close(fd);
 	free(line);
-	printf("%s\n", "tenemos raw_map");
 	return (raw_map);
 }
 
@@ -65,7 +63,6 @@ char	**get_map(int argc, char **argv, t_vars *vars)
 	{
 		return (write(2, "Erro2\n", 6), NULL);
 	}
-	printf("%s\n", "me genera el mapa?");
 	return (map);
 }
 

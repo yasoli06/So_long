@@ -7,8 +7,9 @@ RM = rm -rf
 
 LIBFT = libft/libft.a
 MLX = minilibx/libmlx.a
+PRINTF = printf/libftprintf.a
 
-SRCS = 	so_long.c get_map.c check_map.c get_images.c game.c gnl/get_next_line.c gnl/get_next_line_utils.c utils.c free.c
+SRCS = 	so_long.c get_map.c check_map.c get_images.c game.c gnl/get_next_line.c gnl/get_next_line_utils.c printf/ft_printf.c printf/ft_putnbr.c utils.c free.c
 
 OBJS = $(SRCS:%.c=%.o)
 OBJS_BONUS = $(SRCS_BONUS:%.c=%.o)
@@ -18,23 +19,28 @@ all: $(NAME)
 $(LIBFT):
 	@$(MAKE) -C ./libft
 
+$(PRINTF):
+	@$(MAKE) -C ./printf
+
 $(MLX):
 	@$(MAKE) -C ./minilibx
 
 
-$(NAME): $(OBJS) $(LIBFT) $(MLX)
-	$(CC) $(SRCS) -o $(NAME) -L ./minilibx -lmlx -L ./libft -lft $(MFLAGS) -g
+$(NAME): $(OBJS) $(LIBFT) $(PRINTF) $(MLX)
+	$(CC) $(SRCS) $(CFLAGS) -o $(NAME) -L ./minilibx -lmlx -L ./libft -lft -L ./printf -lprintf -L $(MFLAGS) -g
 
 
 clean:
 	@$(MAKE) clean -C ./libft
 	@$(MAKE) clean -C ./minilibx
+	@$(MAKE) clean -C ./printf
 	@$(RM) $(OBJS)
 	@$(RM) $(NAME)
 	
 fclean: clean
 	@$(MAKE) fclean -C ./libft
 	@$(MAKE) clean -C ./minilibx
+	@$(MAKE) clean -C ./printf
 	@$(RM) $(NAME)
 	
 re: fclean all

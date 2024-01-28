@@ -6,7 +6,7 @@
 /*   By: yaolivei <yaolivei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 17:55:53 by yaolivei          #+#    #+#             */
-/*   Updated: 2024/01/27 19:18:56 by yaolivei         ###   ########.fr       */
+/*   Updated: 2024/01/28 21:24:13 by yaolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "./libft/libft.h"
 # include "./minilibx/mlx.h"
 # include "gnl/get_next_line.h"
+# include "printf/printf.h"
 # include <stdlib.h>
 # include <unistd.h>
 # include <string.h>
@@ -36,8 +37,7 @@ typedef struct s_vars
 	void	*img;
 	int		count;
 	int		collect;
-	// int		exitable;
-	// int		check_coin;
+	int		moves;
 }				t_vars;
 
 typedef struct s_img
@@ -71,14 +71,20 @@ char	*free_map(char **map);
 int		strnendcmp(char *s1, const char *s2, size_t n);
 int		count_char(char c, char *str);
 int		count_char_map(char c, char **map);
+int		exit_me(t_vars *vars);
 
 // GET_IMAGES
 void	put_image(t_vars *vars, t_img *img, char *path);
 void	background(t_vars *vars, t_img	*img);
 void	get_images(t_vars *vars, t_img	*img);
 void	init_game(t_vars *vars, t_img *img);
+void	change_image(t_vars *vars, t_img *img, char *path);
 
 //GAME
-int		keypress(int keycode, t_vars *vars);
+int		keypress(int keycode, t_vars *vars);	
+int		move_up(t_vars *vars, t_img *img);
+int		move_down(t_vars *vars, t_img *img);
+int		move_right(t_vars *vars, t_img *img);
+int		move_left(t_vars *vars, t_img *img);
 
 #endif

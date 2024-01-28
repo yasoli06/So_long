@@ -6,7 +6,7 @@
 /*   By: yaolivei <yaolivei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 18:15:43 by yaolivei          #+#    #+#             */
-/*   Updated: 2024/01/26 16:13:35 by yaolivei         ###   ########.fr       */
+/*   Updated: 2024/01/28 16:08:13 by yaolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ int	check_is_rectangular(char **map, t_vars *vars)
 		j++;
 	}
 	vars->height = j;
-	printf("%s\n", "is rectangular");
 	return (1);
 }
 
@@ -59,7 +58,6 @@ int	check_is_closed(char **map, t_vars *vars)
 			j++;
 		}
 	}
-	printf("%s\n", "is closed");
 	return (1);
 }
 
@@ -69,7 +67,6 @@ int	check_min_size(t_vars *vars)
 		return (0);
 	if (vars->height * vars->width < 15)
 		return (0);
-	printf("%s\n", "min posible es ok");
 	return (1);
 }
 
@@ -90,7 +87,6 @@ int	check_min_type_char(char *raw_map, t_vars *vars)
 	vars->collect = (count_char('C', raw_map));
 	if (vars->collect < 1)
 		return (0);
-	printf("%s\n", "los caracteres es ok");
 	return (1);
 }
 
@@ -104,6 +100,5 @@ int	check_final_map(char **map, t_vars *vars, char *raw_map)
 		return (0);
 	if (!check_min_type_char(raw_map, vars))
 		return (0);
-	printf("%s\n", "los chequeos estan bien");
 	return (1);
 }
