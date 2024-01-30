@@ -6,7 +6,7 @@
 /*   By: yaolivei <yaolivei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 16:35:54 by yaolivei          #+#    #+#             */
-/*   Updated: 2024/01/28 16:08:35 by yaolivei         ###   ########.fr       */
+/*   Updated: 2024/01/30 21:30:14 by yaolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ char	**get_map(int argc, char **argv, t_vars *vars)
 	char	**map;
 
 	if (argc != 2 || !map_name_is_correct(argv[1]))
-		write(2, "Erro\n", 6);
+		write(2, "Error\n", 6);
 	raw_map = get_raw_map(argv[1]);
 	if (!raw_map)
 		return (write(2, "Erro1\n", 6), NULL);
@@ -82,6 +82,7 @@ char	**final_map(int argc, char **argv, t_vars *vars)
 {
 	vars->x = 0;
 	vars->y = 0;
+	vars->moves = 0;
 	vars->map = get_map(argc, argv, vars);
 	while (vars->map[vars->y])
 	{
@@ -100,7 +101,7 @@ char	**final_map(int argc, char **argv, t_vars *vars)
 	if (count_char_map('E', vars->map) > 0
 		|| count_char_map('C', vars->map) > 0)
 		return (NULL);
-	free(vars->map);
+	//free_map(vars->map);
 	vars->map = get_map(argc, argv, vars);
 	return (vars->map);
 }

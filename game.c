@@ -6,7 +6,7 @@
 /*   By: yaolivei <yaolivei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 18:15:52 by yaolivei          #+#    #+#             */
-/*   Updated: 2024/01/30 20:42:04 by yaolivei         ###   ########.fr       */
+/*   Updated: 2024/01/30 21:40:27 by yaolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,17 @@ int	move_up(t_vars *vars, t_img *img)
 	if (vars->map[vars->y - 1][vars->x] == 'E' && vars->collect == 0)
 	{
 		write(1, "YOU WIN", 8);
-		free(vars->map);
+		//CREAR FUNCION PARA LIBERAR TODO
+		/*
+			DESTRUIR MLX & WIN
+			LIBERAR EL MAPA
+			free_map(vars->map);
+			LIBERAR LAS IMAGENES
+			liberar las estructuras free
+			la img que se envia por parametros
+			mlx_destroy_image (vars->mlx, img);
+		*/
+		free_map(vars->map);
 		exit(0);
 	}
 	if (vars->map[vars->y - 1][vars->x] != '1' \
@@ -42,8 +52,8 @@ int	move_down(t_vars *vars, t_img *img)
 	if (vars->map[vars->y + 1][vars->x] == 'E' && vars->collect == 0)
 	{
 		write(1, "YOU WIN", 8);
-		free(img);
-		free(vars->map);
+		mlx_destroy_image (vars->mlx, img);
+		free_map(vars->map);
 		exit(0);
 	}
 	if (vars->map[vars->y + 1][vars->x] != '1' \
@@ -68,8 +78,8 @@ int	move_right(t_vars *vars, t_img *img)
 	if (vars->map[vars->y][vars->x + 1] == 'E' && vars->collect == 0)
 	{
 		write(1, "YOU WIN", 8);
-		free(img);
-		free(vars->map);
+		mlx_destroy_image (vars->mlx, img);
+		free_map(vars->map);
 		exit(0);
 	}
 	if (vars->map[vars->y][vars->x + 1] != '1' \
@@ -94,8 +104,8 @@ int	move_left(t_vars *vars, t_img *img)
 	if (vars->map[vars->y][vars->x - 1] == 'E' && vars->collect == 0)
 	{
 		write(1, "YOU WIN", 8);
-		free(img);
-		free(vars->map);
+		mlx_destroy_image (vars->mlx, img);
+		free_map(vars->map);
 		exit(0);
 	}
 	if (vars->map[vars->y][vars->x - 1] != '1' \
