@@ -9,7 +9,7 @@ LIBFT = libft/libft.a
 MLX = minilibx/libmlx.a
 PRINTF = printf/libftprintf.a
 
-SRCS = 	so_long.c get_map.c check_map.c get_images.c game.c gnl/get_next_line.c gnl/get_next_line_utils.c printf/ft_printf.c printf/ft_putnbr.c utils.c free.c
+SRCS = 	so_long.c get_map.c check_map.c get_images.c game.c gnl/get_next_line.c gnl/get_next_line_utils.c utils.c free.c
 
 OBJS = $(SRCS:%.c=%.o)
 OBJS_BONUS = $(SRCS_BONUS:%.c=%.o)
@@ -27,7 +27,7 @@ $(MLX):
 
 
 $(NAME): $(OBJS) $(LIBFT) $(PRINTF) $(MLX)
-	$(CC) $(SRCS) $(CFLAGS) -o $(NAME) -L ./minilibx -lmlx -L ./libft -lft -L ./printf -lprintf -L $(MFLAGS) -g
+	$(CC) $(OBJS) $(CFLAGS) -o $(NAME) -L ./minilibx -lmlx -L ./libft -lft -L ./printf -lftprintf -I ./printf $(MFLAGS) -g 
 
 
 clean:

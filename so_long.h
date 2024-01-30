@@ -6,7 +6,7 @@
 /*   By: yaolivei <yaolivei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 17:55:53 by yaolivei          #+#    #+#             */
-/*   Updated: 2024/01/28 21:24:13 by yaolivei         ###   ########.fr       */
+/*   Updated: 2024/01/30 19:18:57 by yaolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include "./libft/libft.h"
 # include "./minilibx/mlx.h"
 # include "gnl/get_next_line.h"
-# include "printf/printf.h"
+# include "./printf/ft_printf.h"
 # include <stdlib.h>
 # include <unistd.h>
 # include <string.h>

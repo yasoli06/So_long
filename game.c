@@ -6,7 +6,7 @@
 /*   By: yaolivei <yaolivei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 18:15:52 by yaolivei          #+#    #+#             */
-/*   Updated: 2024/01/28 21:23:53 by yaolivei         ###   ########.fr       */
+/*   Updated: 2024/01/30 20:42:04 by yaolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	move_up(t_vars *vars, t_img *img)
 	if (vars->map[vars->y - 1][vars->x] != '1' \
 		&& vars->map[vars->y - 1][vars->x] != 'E')
 	{
-		if(vars->map[vars->y - 1][vars->x] == 'C')
+		if (vars->map[vars->y - 1][vars->x] == 'C')
 		{
 			vars->collect--;
 			vars->map[vars->y - 1][vars->x] = '0';
@@ -42,13 +42,14 @@ int	move_down(t_vars *vars, t_img *img)
 	if (vars->map[vars->y + 1][vars->x] == 'E' && vars->collect == 0)
 	{
 		write(1, "YOU WIN", 8);
+		free(img);
 		free(vars->map);
 		exit(0);
 	}
 	if (vars->map[vars->y + 1][vars->x] != '1' \
 		&& vars->map[vars->y + 1][vars->x] != 'E')
 	{
-		if(vars->map[vars->y + 1][vars->x] == 'C')
+		if (vars->map[vars->y + 1][vars->x] == 'C')
 		{
 			vars->collect--;
 			vars->map[vars->y + 1][vars->x] = '0';
@@ -67,13 +68,14 @@ int	move_right(t_vars *vars, t_img *img)
 	if (vars->map[vars->y][vars->x + 1] == 'E' && vars->collect == 0)
 	{
 		write(1, "YOU WIN", 8);
+		free(img);
 		free(vars->map);
 		exit(0);
 	}
 	if (vars->map[vars->y][vars->x + 1] != '1' \
 		&& vars->map[vars->y][vars->x + 1] != 'E')
 	{
-		if(vars->map[vars->y][vars->x + 1] == 'C')
+		if (vars->map[vars->y][vars->x + 1] == 'C')
 		{
 			vars->collect--;
 			vars->map[vars->y][vars->x + 1] = '0';
@@ -86,18 +88,20 @@ int	move_right(t_vars *vars, t_img *img)
 	}
 	return (0);
 }
+
 int	move_left(t_vars *vars, t_img *img)
 {
 	if (vars->map[vars->y][vars->x - 1] == 'E' && vars->collect == 0)
 	{
 		write(1, "YOU WIN", 8);
+		free(img);
 		free(vars->map);
 		exit(0);
 	}
 	if (vars->map[vars->y][vars->x - 1] != '1' \
 		&& vars->map[vars->y][vars->x - 1] != 'E')
 	{
-		if(vars->map[vars->y][vars->x - 1] == 'C')
+		if (vars->map[vars->y][vars->x - 1] == 'C')
 		{
 			vars->collect--;
 			vars->map[vars->y][vars->x - 1] = '0';
@@ -106,7 +110,7 @@ int	move_left(t_vars *vars, t_img *img)
 		vars->x -= 1;
 		vars->moves++;
 		ft_printf("Moves: %i\n", vars->moves);
-		change_image(vars, img, "texture/Dino.xpm");
+		change_image(vars, img, "texture/Dino_tras.xpm");
 	}
 	return (0);
 }
