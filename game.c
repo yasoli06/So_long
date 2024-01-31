@@ -6,7 +6,7 @@
 /*   By: yaolivei <yaolivei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 18:15:52 by yaolivei          #+#    #+#             */
-/*   Updated: 2024/01/30 21:40:27 by yaolivei         ###   ########.fr       */
+/*   Updated: 2024/01/31 20:22:46 by yaolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,7 @@ int	move_up(t_vars *vars, t_img *img)
 {
 	if (vars->map[vars->y - 1][vars->x] == 'E' && vars->collect == 0)
 	{
-		write(1, "YOU WIN", 8);
-		//CREAR FUNCION PARA LIBERAR TODO
-		/*
-			DESTRUIR MLX & WIN
-			LIBERAR EL MAPA
-			free_map(vars->map);
-			LIBERAR LAS IMAGENES
-			liberar las estructuras free
-			la img que se envia por parametros
-			mlx_destroy_image (vars->mlx, img);
-		*/
+		write(1, "YOU WIN\n", 8);
 		free_map(vars->map);
 		exit(0);
 	}
@@ -38,11 +28,13 @@ int	move_up(t_vars *vars, t_img *img)
 			vars->collect--;
 			vars->map[vars->y - 1][vars->x] = '0';
 		}
-		change_image(vars, img, "texture/Grass1.xpm");
+		mlx_put_image_to_window(vars->mlx, vars->win, img->grass, img->i
+			* img->img_width, img->j * img->img_height);
 		vars->y -= 1;
 		vars->moves++;
+		mlx_put_image_to_window(vars->mlx, vars->win, img->dino, img->i
+			* img->img_width, img->j * img->img_height);
 		ft_printf("Moves: %i\n", vars->moves);
-		change_image(vars, img, "texture/Dino.xpm");
 	}
 	return (0);
 }
@@ -51,8 +43,7 @@ int	move_down(t_vars *vars, t_img *img)
 {
 	if (vars->map[vars->y + 1][vars->x] == 'E' && vars->collect == 0)
 	{
-		write(1, "YOU WIN", 8);
-		mlx_destroy_image (vars->mlx, img);
+		write(1, "YOU WIN\n", 8);
 		free_map(vars->map);
 		exit(0);
 	}
@@ -64,11 +55,13 @@ int	move_down(t_vars *vars, t_img *img)
 			vars->collect--;
 			vars->map[vars->y + 1][vars->x] = '0';
 		}
-		change_image(vars, img, "texture/Grass1.xpm");
+		mlx_put_image_to_window(vars->mlx, vars->win, img->grass, img->i
+			* img->img_width, img->j * img->img_height);
 		vars->y += 1;
 		vars->moves++;
+		mlx_put_image_to_window(vars->mlx, vars->win, img->dino, img->i
+			* img->img_width, img->j * img->img_height);
 		ft_printf("Moves: %i\n", vars->moves);
-		change_image(vars, img, "texture/Dino.xpm");
 	}
 	return (0);
 }
@@ -77,8 +70,7 @@ int	move_right(t_vars *vars, t_img *img)
 {
 	if (vars->map[vars->y][vars->x + 1] == 'E' && vars->collect == 0)
 	{
-		write(1, "YOU WIN", 8);
-		mlx_destroy_image (vars->mlx, img);
+		write(1, "YOU WIN\n", 8);
 		free_map(vars->map);
 		exit(0);
 	}
@@ -90,11 +82,13 @@ int	move_right(t_vars *vars, t_img *img)
 			vars->collect--;
 			vars->map[vars->y][vars->x + 1] = '0';
 		}
-		change_image(vars, img, "texture/Grass1.xpm");
+		mlx_put_image_to_window(vars->mlx, vars->win, img->grass, img->i
+			* img->img_width, img->j * img->img_height);
 		vars->x += 1;
 		vars->moves++;
+		mlx_put_image_to_window(vars->mlx, vars->win, img->dino, img->i
+			* img->img_width, img->j * img->img_height);
 		ft_printf("Moves: %i\n", vars->moves);
-		change_image(vars, img, "texture/Dino.xpm");
 	}
 	return (0);
 }
@@ -103,8 +97,7 @@ int	move_left(t_vars *vars, t_img *img)
 {
 	if (vars->map[vars->y][vars->x - 1] == 'E' && vars->collect == 0)
 	{
-		write(1, "YOU WIN", 8);
-		mlx_destroy_image (vars->mlx, img);
+		write(1, "YOU WIN\n", 8);
 		free_map(vars->map);
 		exit(0);
 	}
@@ -116,11 +109,13 @@ int	move_left(t_vars *vars, t_img *img)
 			vars->collect--;
 			vars->map[vars->y][vars->x - 1] = '0';
 		}
-		change_image(vars, img, "texture/Grass1.xpm");
+		mlx_put_image_to_window(vars->mlx, vars->win, img->grass, img->i
+			* img->img_width, img->j * img->img_height);
 		vars->x -= 1;
 		vars->moves++;
+		mlx_put_image_to_window(vars->mlx, vars->win, img->dino, img->i
+			* img->img_width, img->j * img->img_height);
 		ft_printf("Moves: %i\n", vars->moves);
-		change_image(vars, img, "texture/Dino_tras.xpm");
 	}
 	return (0);
 }

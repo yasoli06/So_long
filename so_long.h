@@ -6,7 +6,7 @@
 /*   By: yaolivei <yaolivei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 17:55:53 by yaolivei          #+#    #+#             */
-/*   Updated: 2024/01/30 19:18:57 by yaolivei         ###   ########.fr       */
+/*   Updated: 2024/01/31 20:30:16 by yaolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,12 @@ typedef struct s_vars
 
 typedef struct s_img
 {
-	char	*img_path;
+	void	*dino;
+	void	*dino_tras;
+	void	*cave;
+	void	*grass;
+	void	*tree;
+	void	*huevo;
 	int		img_width;
 	int		img_height;
 	int		i;
@@ -74,11 +79,11 @@ int		count_char_map(char c, char **map);
 int		exit_me(t_vars *vars);
 
 // GET_IMAGES
-void	put_image(t_vars *vars, t_img *img, char *path);
+void	put_image(t_vars *vars, t_img *img);
 void	background(t_vars *vars, t_img	*img);
 void	get_images(t_vars *vars, t_img	*img);
 void	init_game(t_vars *vars, t_img *img);
-void	change_image(t_vars *vars, t_img *img, char *path);
+//void	change_image(t_vars *vars, t_img *img, char *path);
 
 //GAME
 int		keypress(int keycode, t_vars *vars);	

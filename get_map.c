@@ -6,7 +6,7 @@
 /*   By: yaolivei <yaolivei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 16:35:54 by yaolivei          #+#    #+#             */
-/*   Updated: 2024/01/30 21:30:14 by yaolivei         ###   ########.fr       */
+/*   Updated: 2024/01/31 16:55:47 by yaolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ char	**get_map(int argc, char **argv, t_vars *vars)
 	{
 		return (write(2, "Erro2\n", 6), NULL);
 	}
+	free(raw_map);
 	return (map);
 }
 
@@ -101,7 +102,7 @@ char	**final_map(int argc, char **argv, t_vars *vars)
 	if (count_char_map('E', vars->map) > 0
 		|| count_char_map('C', vars->map) > 0)
 		return (NULL);
-	//free_map(vars->map);
+	free_map(vars->map);
 	vars->map = get_map(argc, argv, vars);
 	return (vars->map);
 }

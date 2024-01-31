@@ -6,7 +6,7 @@
 /*   By: yaolivei <yaolivei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 21:03:01 by yaolivei          #+#    #+#             */
-/*   Updated: 2024/01/28 19:01:33 by yaolivei         ###   ########.fr       */
+/*   Updated: 2024/01/31 20:15:59 by yaolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@ int	count_char_map(char c, char **map)
 
 int	exit_me(t_vars *vars)
 {
-	(void)vars;
+	mlx_destroy_window(vars->mlx, vars->win);
+	mlx_destroy_image(vars->mlx, vars->img);
+	free_map(vars->map);
 	exit(0);
 }
