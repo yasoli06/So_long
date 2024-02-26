@@ -6,7 +6,7 @@
 /*   By: yaolivei <yaolivei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/14 17:55:53 by yaolivei          #+#    #+#             */
-/*   Updated: 2024/02/26 14:19:38 by yaolivei         ###   ########.fr       */
+/*   Updated: 2024/02/26 17:02:35 by yaolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ typedef struct s_vars
 	void	*down;
 	void	*up;
 	void	*dino;
+	void	*dino_tras;
 	void	*cave;
 	void	*grass;
 	void	*tree;

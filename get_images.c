@@ -6,7 +6,7 @@
 /*   By: yaolivei <yaolivei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 20:29:08 by yaolivei          #+#    #+#             */
-/*   Updated: 2024/02/26 16:18:05 by yaolivei         ###   ########.fr       */
+/*   Updated: 2024/02/26 17:09:46 by yaolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,9 @@ void	put_image(t_vars *vars, t_img *img)
 		error_exit(vars);
 	vars->grass = mlx_xpm_file_to_image(vars->mlx, "texture/Grass.xpm",
 			&img->img_width, &img->img_height);
-	if (vars->grass == NULL)
+	vars->dino_tras = mlx_xpm_file_to_image(vars->mlx, "texture/Dino_tras.xpm",
+			&img->img_width, &img->img_height);
+	if (vars->grass == NULL || vars->dino == NULL)
 		error_exit(vars);
 }
 

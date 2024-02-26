@@ -6,7 +6,7 @@
 /*   By: yaolivei <yaolivei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 18:15:52 by yaolivei          #+#    #+#             */
-/*   Updated: 2024/02/26 16:04:50 by yaolivei         ###   ########.fr       */
+/*   Updated: 2024/02/26 17:02:46 by yaolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ void	move_left(t_vars *vars)
 		if (vars->map[vars->y][vars->x] == 'E' && vars->collect == 0)
 			exit_win(vars);
 		if (vars->map[vars->y][vars->x] != 'E')
-			mlx_put_image_to_window(vars->mlx, vars->win, vars->dino,
+			mlx_put_image_to_window(vars->mlx, vars->win, vars->dino_tras,
 				vars->x * vars->pos_w, vars->y * vars->pos_h);
 	}
 }
