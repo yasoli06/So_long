@@ -6,7 +6,7 @@
 /*   By: yaolivei <yaolivei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 21:03:01 by yaolivei          #+#    #+#             */
-/*   Updated: 2024/01/31 20:15:59 by yaolivei         ###   ########.fr       */
+/*   Updated: 2024/02/26 14:22:16 by yaolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,6 @@ int	strnendcmp(char *s1, const char *s2, size_t n)
 	{
 		if (ptr1[i1] != ptr2[i2])
 			return (ptr1[i1] - ptr2[i2]);
-		if (i1 == 0 || i2 == 0)
-			break ;
 		i++;
 		i1--;
 		i2--;
@@ -71,10 +69,21 @@ int	count_char_map(char c, char **map)
 	return (n);
 }
 
-int	exit_me(t_vars *vars)
+void	p_position(t_vars *vars)
 {
-	mlx_destroy_window(vars->mlx, vars->win);
-	mlx_destroy_image(vars->mlx, vars->img);
-	free_map(vars->map);
-	exit(0);
+	vars->pos_h = 32;
+	vars->pos_w = 32;
+	while (vars->map[vars->y])
+	{
+		vars->x = 0;
+		while (vars->map[vars->y][vars->x])
+		{
+			if (vars->map[vars->y][vars->x] == 'P')
+				break ;
+			vars->x++;
+		}
+		if (vars->map[vars->y][vars->x] == 'P')
+			break ;
+		vars->y++;
+	}
 }

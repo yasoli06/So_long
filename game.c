@@ -6,131 +6,115 @@
 /*   By: yaolivei <yaolivei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 18:15:52 by yaolivei          #+#    #+#             */
-/*   Updated: 2024/01/31 20:22:46 by yaolivei         ###   ########.fr       */
+/*   Updated: 2024/02/26 16:04:50 by yaolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int	move_up(t_vars *vars, t_img *img)
+void	move_up(t_vars *vars)
 {
-	if (vars->map[vars->y - 1][vars->x] == 'E' && vars->collect == 0)
+	if (vars->map[vars->y - 1][vars->x] != '1')
 	{
-		write(1, "YOU WIN\n", 8);
-		free_map(vars->map);
-		exit(0);
-	}
-	if (vars->map[vars->y - 1][vars->x] != '1' \
-		&& vars->map[vars->y - 1][vars->x] != 'E')
-	{
-		if (vars->map[vars->y - 1][vars->x] == 'C')
+		if (vars->map[vars->y][vars->x] == 'C')
 		{
 			vars->collect--;
 			vars->map[vars->y - 1][vars->x] = '0';
 		}
-		mlx_put_image_to_window(vars->mlx, vars->win, img->grass, img->i
-			* img->img_width, img->j * img->img_height);
-		vars->y -= 1;
+		if (vars->map[vars->y][vars->x] != 'E')
+			mlx_put_image_to_window(vars->mlx, vars->win, vars->grass, vars->x
+				* vars->pos_w, vars->y * vars->pos_h);
+		vars->y --;
 		vars->moves++;
-		mlx_put_image_to_window(vars->mlx, vars->win, img->dino, img->i
-			* img->img_width, img->j * img->img_height);
 		ft_printf("Moves: %i\n", vars->moves);
+		if (vars->map[vars->y][vars->x] == 'E' && vars->collect == 0)
+			exit_win(vars);
+		if (vars->map[vars->y][vars->x] != 'E')
+			mlx_put_image_to_window(vars->mlx, vars->win, vars->dino,
+				vars->x * vars->pos_w, vars->y * vars->pos_h);
 	}
-	return (0);
 }
 
-int	move_down(t_vars *vars, t_img *img)
+void	move_down(t_vars *vars)
 {
-	if (vars->map[vars->y + 1][vars->x] == 'E' && vars->collect == 0)
+	if (vars->map[vars->y + 1][vars->x] != '1')
 	{
-		write(1, "YOU WIN\n", 8);
-		free_map(vars->map);
-		exit(0);
-	}
-	if (vars->map[vars->y + 1][vars->x] != '1' \
-		&& vars->map[vars->y + 1][vars->x] != 'E')
-	{
-		if (vars->map[vars->y + 1][vars->x] == 'C')
+		if (vars->map[vars->y][vars->x] == 'C')
 		{
 			vars->collect--;
-			vars->map[vars->y + 1][vars->x] = '0';
+			vars->map[vars->y - 1][vars->x] = '0';
 		}
-		mlx_put_image_to_window(vars->mlx, vars->win, img->grass, img->i
-			* img->img_width, img->j * img->img_height);
-		vars->y += 1;
+		if (vars->map[vars->y][vars->x] != 'E')
+			mlx_put_image_to_window(vars->mlx, vars->win, vars->grass, vars->x
+				* vars->pos_w, vars->y * vars->pos_h);
+		vars->y++;
 		vars->moves++;
-		mlx_put_image_to_window(vars->mlx, vars->win, img->dino, img->i
-			* img->img_width, img->j * img->img_height);
 		ft_printf("Moves: %i\n", vars->moves);
+		if (vars->map[vars->y][vars->x] == 'E' && vars->collect == 0)
+			exit_win(vars);
+		if (vars->map[vars->y][vars->x] != 'E')
+			mlx_put_image_to_window(vars->mlx, vars->win, vars->dino,
+				vars->x * vars->pos_w, vars->y * vars->pos_h);
 	}
-	return (0);
 }
 
-int	move_right(t_vars *vars, t_img *img)
+void	move_right(t_vars *vars)
 {
-	if (vars->map[vars->y][vars->x + 1] == 'E' && vars->collect == 0)
+	if (vars->map[vars->y][vars->x + 1] != '1')
 	{
-		write(1, "YOU WIN\n", 8);
-		free_map(vars->map);
-		exit(0);
-	}
-	if (vars->map[vars->y][vars->x + 1] != '1' \
-		&& vars->map[vars->y][vars->x + 1] != 'E')
-	{
-		if (vars->map[vars->y][vars->x + 1] == 'C')
+		if (vars->map[vars->y][vars->x] == 'C')
 		{
 			vars->collect--;
-			vars->map[vars->y][vars->x + 1] = '0';
+			vars->map[vars->y][vars->x] = '0';
 		}
-		mlx_put_image_to_window(vars->mlx, vars->win, img->grass, img->i
-			* img->img_width, img->j * img->img_height);
-		vars->x += 1;
+		if (vars->map[vars->y][vars->x] != 'E')
+			mlx_put_image_to_window(vars->mlx, vars->win, vars->grass, vars->x
+				* vars->pos_w, vars->y * vars->pos_h);
+		vars->x++;
 		vars->moves++;
-		mlx_put_image_to_window(vars->mlx, vars->win, img->dino, img->i
-			* img->img_width, img->j * img->img_height);
 		ft_printf("Moves: %i\n", vars->moves);
+		if (vars->map[vars->y][vars->x] == 'E' && vars->collect == 0)
+			exit_win(vars);
+		if (vars->map[vars->y][vars->x] != 'E')
+			mlx_put_image_to_window(vars->mlx, vars->win, vars->dino,
+				vars->x * vars->pos_w, vars->y * vars->pos_h);
 	}
-	return (0);
 }
 
-int	move_left(t_vars *vars, t_img *img)
+void	move_left(t_vars *vars)
 {
-	if (vars->map[vars->y][vars->x - 1] == 'E' && vars->collect == 0)
+	if (vars->map[vars->y][vars->x - 1] != '1')
 	{
-		write(1, "YOU WIN\n", 8);
-		free_map(vars->map);
-		exit(0);
-	}
-	if (vars->map[vars->y][vars->x - 1] != '1' \
-		&& vars->map[vars->y][vars->x - 1] != 'E')
-	{
-		if (vars->map[vars->y][vars->x - 1] == 'C')
+		if (vars->map[vars->y][vars->x] == 'C')
 		{
 			vars->collect--;
-			vars->map[vars->y][vars->x - 1] = '0';
+			vars->map[vars->y][vars->x] = '0';
 		}
-		mlx_put_image_to_window(vars->mlx, vars->win, img->grass, img->i
-			* img->img_width, img->j * img->img_height);
-		vars->x -= 1;
+		if (vars->map[vars->y][vars->x] != 'E')
+			mlx_put_image_to_window(vars->mlx, vars->win, vars->grass, vars->x
+				* vars->pos_w, vars->y * vars->pos_h);
+		vars->x--;
 		vars->moves++;
-		mlx_put_image_to_window(vars->mlx, vars->win, img->dino, img->i
-			* img->img_width, img->j * img->img_height);
 		ft_printf("Moves: %i\n", vars->moves);
+		if (vars->map[vars->y][vars->x] == 'E' && vars->collect == 0)
+			exit_win(vars);
+		if (vars->map[vars->y][vars->x] != 'E')
+			mlx_put_image_to_window(vars->mlx, vars->win, vars->dino,
+				vars->x * vars->pos_w, vars->y * vars->pos_h);
 	}
-	return (0);
 }
 
-int	keypress(int keycode, t_vars *vars)
+int	key_press(int keycode, t_vars *vars)
 {
 	if (keycode == 53)
-		exit(0);
+		exit_me(vars);
 	else if (keycode == 126 || keycode == 13)
-		move_up(vars, vars->img);
+		move_up(vars);
 	else if (keycode == 125 || keycode == 1)
-		move_down(vars, vars->img);
+		move_down(vars);
 	else if (keycode == 124 || keycode == 2)
-		move_right(vars, vars->img);
+		move_right(vars);
 	else if (keycode == 123 || keycode == 0)
-		move_left(vars, vars->img);
+		move_left(vars);
 	return (0);
 }

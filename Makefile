@@ -1,20 +1,31 @@
+#COLORS#
+GREEN = \033[1;92m
+RED = \033[1;91m
+NC = \033[0m
+YELLOW=\033[1;33m
+
 NAME = so_long
 
-CC = gcc
-CFLAGS = -Wall -Wextra -Werror
-MFLAGS = -framework OpenGL -framework AppKit
-RM = rm -rf
+SRCS = main.c get_map.c check_map.c get_images.c game.c utils.c exit_free.c gnl/get_next_line.c gnl/get_next_line_utils.c printf/ft_printf.c
+
+OBJECTS = $(SRCS:%.c=%.o)
 
 LIBFT = libft/libft.a
 MLX = minilibx/libmlx.a
 PRINTF = printf/libftprintf.a
 
-SRCS = 	so_long.c get_map.c check_map.c get_images.c game.c gnl/get_next_line.c gnl/get_next_line_utils.c utils.c free.c
+CC = gcc
+CFLAGS = -Wall -Wextra -Werror -I./
+MFLAGS = -L ./minilibx -lmlx -framework OpenGL -framework AppKit 
+LIBFT_FLAGS = -L ./libft -lft
+PRINTF_FLAGS = -L ./printf -lftprintf -I ./printf
+RM = rm -rf
 
-OBJS = $(SRCS:%.c=%.o)
-OBJS_BONUS = $(SRCS_BONUS:%.c=%.o)
+%.o: %.c 
+	$(CC) -c $< $(CFLAGS) -o $@
+	@echo "$(YELLOW)Compiling... $(END)$(patsubst $(DIR_BUILD)%,%,$@)"
 
-all: $(NAME)
+all: $(MLX) $(LIBFT) $(NAME)
 
 $(LIBFT):
 	@$(MAKE) -C ./libft
@@ -25,16 +36,15 @@ $(PRINTF):
 $(MLX):
 	@$(MAKE) -C ./minilibx
 
-
-$(NAME): $(OBJS) $(LIBFT) $(PRINTF) $(MLX)
-	$(CC) $(OBJS) $(CFLAGS) -o $(NAME) -L ./minilibx -lmlx -L ./libft -lft -L ./printf -lftprintf -I ./printf $(MFLAGS) -g 
-
+$(NAME): $(OBJECTS)
+	$(CC) $(CFLAGS) $(MFLAGS) $(OBJECTS) $(LIBFT_FLAGS) $(PRINTF_FLAGS) -o $(NAME)
+	@echo "$(GREEN)SO_LONG DONE$(END)"
 
 clean:
 	@$(MAKE) clean -C ./libft
 	@$(MAKE) clean -C ./minilibx
 	@$(MAKE) clean -C ./printf
-	@$(RM) $(OBJS)
+	@$(RM) $(OBJECTS)
 	@$(RM) $(NAME)
 	
 fclean: clean
@@ -44,3 +54,5 @@ fclean: clean
 	@$(RM) $(NAME)
 	
 re: fclean all
+
+.PHONY: all clean fclean re

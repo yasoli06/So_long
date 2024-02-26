@@ -25,3 +25,25 @@ char	*free_map(char **map)
 	free(map);
 	return (NULL);
 }
+
+int	exit_win(t_vars *vars)
+{
+	write(1, "YOU WIN!\n", 9);
+	free_map(vars->map);
+	mlx_destroy_window(vars->mlx, vars->win);
+	exit (0);
+}
+
+int	exit_me(t_vars *vars)
+{
+	free_map(vars->map);
+	mlx_destroy_window(vars->mlx, vars->win);
+	exit(0);
+}
+int	error_exit(t_vars *vars)
+{
+	write(1, "Error\n", 7);
+	free_map(vars->map);
+	mlx_destroy_window(vars->mlx, vars->win);
+	exit (0);
+}

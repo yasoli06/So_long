@@ -6,7 +6,7 @@
 /*   By: yaolivei <yaolivei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 16:35:54 by yaolivei          #+#    #+#             */
-/*   Updated: 2024/01/31 16:55:47 by yaolivei         ###   ########.fr       */
+/*   Updated: 2024/02/26 16:05:51 by yaolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,7 @@
 
 int	map_name_is_correct(char *map_path)
 {
-	size_t	len;
-
-	len = ft_strlen(map_path);
-	if (len < 5)
+	if (ft_strlen(map_path) < 5)
 		return (0);
 	if (strnendcmp(map_path, ".ber", 4) != 0)
 		return (0);
@@ -30,13 +27,14 @@ char	*get_raw_map(char *map_path)
 	char	*line;
 	char	*raw_map;
 
-	fd = open (map_path, O_RDONLY);
+	fd = open(map_path, O_RDONLY);
 	if (fd < 0)
 		return (NULL);
 	line = get_next_line(fd);
-	if (line == NULL)
+	if (!line)
 		return (NULL);
-	raw_map = ft_strdup("");
+	raw_map = malloc(sizeof(char *) * 1);
+	raw_map[0] = '\0';
 	while (line)
 	{
 		raw_map = gnl_strjoin(raw_map, line);
@@ -44,7 +42,6 @@ char	*get_raw_map(char *map_path)
 		line = get_next_line(fd);
 	}
 	close(fd);
-	free(line);
 	return (raw_map);
 }
 
@@ -54,14 +51,22 @@ char	**get_map(int argc, char **argv, t_vars *vars)
 	char	**map;
 
 	if (argc != 2 || !map_name_is_correct(argv[1]))
-		write(2, "Error\n", 6);
+	{
+		write(1, "Error1\nInvalid file\n", 21);
+		exit (1);
+	}
 	raw_map = get_raw_map(argv[1]);
 	if (!raw_map)
-		return (write(2, "Erro1\n", 6), NULL);
-	map = ft_split(raw_map, '\n');
-	if (!check_final_map(map, vars, raw_map))
 	{
-		return (write(2, "Erro2\n", 6), NULL);
+		write(1, "Error\n", 6);
+		exit (1);
+	}
+	map = ft_split(raw_map, '\n');
+	if (!final_check(map, vars, raw_map))
+	{
+		write(1, "Error2\nInvalid map\n", 20);
+		free(raw_map);
+		exit (1);
 	}
 	free(raw_map);
 	return (map);
@@ -85,23 +90,15 @@ char	**final_map(int argc, char **argv, t_vars *vars)
 	vars->y = 0;
 	vars->moves = 0;
 	vars->map = get_map(argc, argv, vars);
-	while (vars->map[vars->y])
-	{
-		vars->x = 0;
-		while (vars->map[vars->y][vars->x])
-		{
-			if (vars->map[vars->y][vars->x] == 'P')
-				break ;
-			vars->x++;
-		}
-		if (vars->map[vars->y][vars->x] == 'P')
-			break ;
-		vars->y++;
-	}
+	p_position(vars);
 	flood_fill(vars->map, vars->x, vars->y, vars);
 	if (count_char_map('E', vars->map) > 0
 		|| count_char_map('C', vars->map) > 0)
+	{
+		write(1, "Error\nInvalid exit\n", 19);
+		free_map(vars->map);
 		return (NULL);
+	}
 	free_map(vars->map);
 	vars->map = get_map(argc, argv, vars);
 	return (vars->map);

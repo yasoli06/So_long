@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.c                                          :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yaolivei <yaolivei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/11 15:41:10 by yaolivei          #+#    #+#             */
-/*   Updated: 2024/01/30 21:10:39 by yaolivei         ###   ########.fr       */
+/*   Updated: 2024/02/26 16:05:07 by yaolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ int	main(int argc, char **argv)
 	vars = malloc(sizeof(t_vars));
 	if (!vars)
 		return (free(img), 1);
-	final_map(argc, argv, vars);
+	if (!final_map(argc, argv, vars))
+		return (0);
 	init_game(vars, img);
 	return (0);
 }
