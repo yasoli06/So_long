@@ -6,7 +6,7 @@
 /*   By: yaolivei <yaolivei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/29 12:50:17 by yaolivei          #+#    #+#             */
-/*   Updated: 2024/01/04 22:21:12 by yaolivei         ###   ########.fr       */
+/*   Updated: 2024/02/29 17:16:52 by yaolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,8 +116,8 @@ char	*get_next_line(int fd)
 	int		fd;
 	char	*line;
 	//int i = 0;
-	fd = open("test.txt", O_RDONLY);
-	line = "hola";//get_next_line(fd);
+	fd = open("tester.txt", O_RDONLY);
+	line = "hola";
 	while (line)
 	{
 		line = get_next_line(fd);

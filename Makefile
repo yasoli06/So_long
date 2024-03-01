@@ -6,17 +6,18 @@ YELLOW=\033[1;33m
 
 NAME = so_long
 
-SRCS = main.c get_map.c check_map.c get_images.c game.c utils.c exit_free.c gnl/get_next_line.c gnl/get_next_line_utils.c printf/ft_printf.c
+SRCS = main.c get_map.c check_map.c get_images.c game.c utils.c exit_free.c gnl/get_next_line.c gnl/get_next_line_utils.c
 
 OBJECTS = $(SRCS:%.c=%.o)
 
 LIBFT = libft/libft.a
-MLX = minilibx/libmlx.a
 PRINTF = printf/libftprintf.a
+MLX = minilibx/libmlx.a
 
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror -I./
-MFLAGS = -L ./minilibx -lmlx -framework OpenGL -framework AppKit 
+MFLAGS = 
+ 
 LIBFT_FLAGS = -L ./libft -lft
 PRINTF_FLAGS = -L ./printf -lftprintf -I ./printf
 RM = rm -rf
@@ -25,7 +26,7 @@ RM = rm -rf
 	$(CC) -c $< $(CFLAGS) -o $@
 	@echo "$(YELLOW)Compiling... $(END)$(patsubst $(DIR_BUILD)%,%,$@)"
 
-all: $(MLX) $(LIBFT) $(NAME)
+all: $(MLX) $(LIBFT) $(PRINTF) $(NAME)
 
 $(LIBFT):
 	@$(MAKE) -C ./libft
@@ -42,15 +43,15 @@ $(NAME): $(OBJECTS)
 
 clean:
 	@$(MAKE) clean -C ./libft
-	@$(MAKE) clean -C ./minilibx
 	@$(MAKE) clean -C ./printf
+	@$(MAKE) clean -C ./minilibx
 	@$(RM) $(OBJECTS)
 	@$(RM) $(NAME)
 	
 fclean: clean
 	@$(MAKE) fclean -C ./libft
-	@$(MAKE) clean -C ./minilibx
 	@$(MAKE) clean -C ./printf
+	@$(MAKE) clean -C ./minilibx
 	@$(RM) $(NAME)
 	
 re: fclean all
